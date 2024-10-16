@@ -1,0 +1,17 @@
+<div class="container mx-auto">
+    <h1 class="font-bold text-gray-800 mb-6 text-4xl">Mes Livres</h1>
+    
+    <div class="space-y-4">
+        <ul>
+            @for (livre of livres; track livre; let i = $index){
+                <li class="flex justify-between items-center p-4 bg-gray-300 rounded mb-3">
+                    <span class="text-lg font-bold text-gray-700">{{ livre.title }} - {{ livre.author }} - {{ livre.isRead | emoji}}</span>
+                    <button (click)="isRead(i)"  class="bg-blue-700 text-white rounded-lg p-3 hover:bg-red-600">{{ livre.isRead ? 'Non lu' : 'Lu'}}</button>
+                </li>
+            } @empty {
+                <p>Aucune série en cours</p>
+            }
+        </ul>
+    </div>
+
+</div>
