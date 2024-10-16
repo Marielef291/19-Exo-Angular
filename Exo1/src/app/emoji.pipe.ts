@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EmojiPipe implements PipeTransform {
   transform(iRead: boolean): string {
-    return iRead ? '👍' : '📖';
+    return iRead ? '👍' : '🔍';
   }
 }

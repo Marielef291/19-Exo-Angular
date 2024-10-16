@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EmojiPipe } from '../../emoji.pipe';
+import { FormsModule } from '@angular/forms';
 interface Book {
   title: string;
   author: string;
@@ -9,7 +10,7 @@ interface Book {
 @Component({
   selector: 'app-librairy',
   standalone: true,
-  imports: [EmojiPipe],
+  imports: [EmojiPipe, FormsModule],
   templateUrl: './librairy.component.html',
   styleUrl: './librairy.component.css',
 })
@@ -20,7 +21,30 @@ export class LibrairyComponent {
     { title: 'Fahrenheit 451', author: 'Ray Bradbury', isRead: false },
   ];
 
+  livre : Book = {
+    title : '',
+    author : '', 
+    isRead : false, 
+  }
+  isSubmitted : boolean = false
+
   isRead(index : number){
     this.livres[index].isRead == false ? this.livres[index].isRead = true : this.livres[index].isRead = false
   }
+
+  submitLivre() : void {
+    this.isSubmitted = true
+    this.livres.push(this.livre)
+    console.log(this.livre);
+    this.resetForm()
+  }
+  
+  resetForm(){
+    this.livre = {
+      title : '',
+      author : '', 
+      isRead : false, 
+    }
+  }
+
 }
