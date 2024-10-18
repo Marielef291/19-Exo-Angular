@@ -1,0 +1,83 @@
+<form [formGroup]="pokeForm" (ngSubmit)="onSubmit()" class="max-w-2xl mx-auto bg-white p-8 shadow-md rounded-lg space-y-6">
+    <!-- Nom du Pokemon -->
+    <div class="flex flex-col">
+        <label for="name" class="text-lg font-semibold text-gray-700">Nom du pokemon</label>
+        <input type="text" id="name" formControlName="nom" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+    </div>
+
+    <!-- Description -->
+    <div class="flex flex-col">
+        <label for="description" class="text-lg font-semibold text-gray-700">Description</label>
+        <textarea id="description" formControlName="description" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+    </div>
+
+    <!-- Zone d'apparition -->
+    <fieldset formGroupName="zone" class="border-t border-gray-200 pt-4">
+        <legend class="text-xl font-semibold text-gray-700">Zone d'apparition</legend>
+        
+        <div class="flex flex-col mt-4">
+            <label for="zonename" class="text-lg font-semibold text-gray-700">Nom de la zone</label>
+            <input type="text" id="zonename" formControlName="nom" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+
+        <div class="flex flex-col mt-4">
+            <label for="region" class="text-lg font-semibold text-gray-700">Région</label>
+            <input type="text" id="region" formControlName="region" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+    </fieldset>
+
+    <!-- Types -->
+    <div class="flex flex-col">
+        <label for="type" class="text-lg font-semibold text-gray-700">Type</label>
+        <select name="type" id="type" multiple formControlName="types" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+            @for (type of types; track type; let i=$index) {
+                <option [value]="type">{{type}}</option>
+            }
+        </select>
+    </div>
+
+    <!-- Attaques -->
+    <fieldset formArrayName="attacks" class="border-t border-gray-200 pt-4">
+        <legend class="text-xl font-semibold text-gray-700">Attaques</legend>
+        
+        @for(control of attacks.controls; track control; let i = $index) {
+            <fieldset [formGroupName]="i" class="border border-gray-300 rounded-lg p-4 mt-4">
+                <legend class="text-lg font-semibold text-gray-700">Attaques n°{{i + 1}}</legend>
+                
+                <div class="flex flex-col mt-4">
+                    <label [for]="'nom' + i" class="text-lg font-medium text-gray-700">Nom de l'attaque</label>
+                    <input type="text" [id]="'nom' + i" formControlName="nom" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div class="flex flex-col mt-4">
+                    <label [for]="'description' + i" class="text-lg font-medium text-gray-700">Description de l'attaque</label>
+                    <input type="text" [id]="'description' + i" formControlName="description" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div class="flex flex-col mt-4">
+                    <label [for]="'degat' + i" class="text-lg font-medium text-gray-700">Dégâts</label>
+                    <input type="number" [id]="'attaque' + i" formControlName="degat" class="mt-2 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </fieldset>
+        }
+        
+        <button type="button" (click)="addAttack()" class="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Ajouter une attaque
+        </button>
+    </fieldset>
+
+    <!-- Submit Button -->
+    <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        Créer un pokemon
+    </button>
+</form>
+
+
+<div class="pokemon-container flex flex-wrap gap-6">
+    @for (pokemon of pokemonList; track pokemon; let i = $index) {
+    <div class="pokemon-card flex-1 border p-6 rounded-lg shadow-lg bg-white max-w-xs">
+        <app-pokemon-card [pokemon]="pokemon" (deleteEvent)="deletePokemon($event)" />
+    </div>}
+  </div>
+
+

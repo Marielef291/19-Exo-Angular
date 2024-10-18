@@ -1,0 +1,37 @@
+<div class="pokemon-card border p-6 rounded-lg shadow-lg bg-white max-w-md mx-auto mb-8">
+  <!-- Nom du Pokémon -->
+  <h2 class="text-2xl font-bold text-gray-800">{{ pokemon.nom }}</h2>
+  
+  <!-- Description du Pokémon -->
+  <p class="text-gray-600 mt-2">{{ pokemon.description }}</p>
+
+  <!-- Types du Pokémon -->
+  <h3 class="mt-4 font-semibold text-lg text-gray-700">Types :</h3>
+  <ul class="flex flex-wrap gap-2 mt-2">
+    @for(type of pokemon.types; track type) {
+      <li class="px-3 py-1 bg-blue-200 rounded-full text-sm text-gray-800">
+        {{ type }}
+      </li>
+    }
+  </ul>
+
+  <!-- Attaques du Pokémon -->
+  <h3 class="mt-6 font-semibold text-lg text-gray-700">Attaques :</h3>
+  <ul class="grid grid-cols-1 gap-4 mt-4">
+    @for(attack of pokemon.attacks; track attack) {
+      <li class="p-4 bg-gray-100 rounded-lg shadow-sm">
+        <strong class="block text-gray-800">{{ attack.nom }}</strong>
+        <p class="text-sm text-gray-600">{{ attack.description }}</p>
+        <span class="text-sm font-semibold text-gray-800">Dégâts: {{ attack.degats }}</span>
+      </li>
+    }
+  </ul>
+
+  <!-- Zone d'apparition du Pokémon -->
+  <h3 class="mt-6 font-semibold text-lg text-gray-700">Zone d'apparition :</h3>
+  <p class="text-gray-600">{{ pokemon.zone.nom }}, {{ pokemon.zone.region }}</p>
+</div>
+
+<div>
+  <button class="bg-red-600 rounded py-1 px-4 text-white mt-4" (click)="deletePokemon()">Supprimer le pokemon</button>
+</div>

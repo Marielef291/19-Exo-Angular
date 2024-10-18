@@ -1,0 +1,53 @@
+<div class="flex items-start ">
+  <!-- Formulaire à gauche avec un fond et labels au-dessus des inputs -->
+  <form class="w-full max-w-sm bg-white p-6 shadow-lg rounded-lg mx-auto mr-8" (ngSubmit)="submitNewProduct()">
+    <div class="mb-6">
+      <label class="block text-gray-700 font-bold mb-2" for="titre">Titre</label>
+      <input
+        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        type="text" id="titre" name="titre" [(ngModel)]="newProduct.titre"/>
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-gray-700 font-bold mb-2" for="description">Description</label>
+      <input
+        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        type="text" id="description" name="description" [(ngModel)]="newProduct.description"/>
+    </div>
+
+    <div class="mb-6">
+      <label class="block text-gray-700 font-bold mb-2" for="prix">Prix</label>
+      <input
+        class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        type="number" id="prix" name="prix" [(ngModel)]="newProduct.prix"/>
+    </div>
+
+    <button
+      class="w-full shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+      Ajouter
+    </button>
+  </form>
+
+  <!-- Tableau à droite, plus large et centré -->
+  <div class="w-full max-w-3xl mx-auto">
+    <table class="min-w-full table-auto bg-white shadow-md rounded-lg">
+      <thead>
+        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+          <th class="py-3 px-6 text-left">Produit</th>
+          <th class="py-3 px-6 text-left">Description</th>
+          <th class="py-3 px-6 text-right">Prix (€)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products; track product; let i = $index){
+        <tr class="border-b border-gray-200 hover:bg-gray-100">
+          <td class="py-3 px-6 text-left">{{ product.titre }}</td>
+          <td class="py-3 px-6 text-left">{{ product.description }}</td>
+          <td class="py-3 px-6 text-right">{{ product.prix }}€</td>
+          <td class="py-3 px-6 text-center"><button type="button" class="w-full shadow bg-red-400 hover:bg-red-600 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" (click)="deleteProduct(product)">X</button> </td>
+        </tr>}
+      </tbody>
+    </table>
+  </div>
+</div>
